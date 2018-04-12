@@ -13,7 +13,7 @@ var config = {
 module.exports = config;
 ```
 
--[ ]添加订阅油价变化
+- [ ] TODO：添加订阅油价变化
 
 ---------
 
