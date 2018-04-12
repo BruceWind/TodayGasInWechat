@@ -113,6 +113,11 @@ Page({
 
     requestGas(this.data.provincearray[this.data.provinceindex])
   },
+  onclickdonate: function(e){
+    wx.navigateTo({
+      url: '../cashier/index'//实际路径要写全
+    })
+  },
   onLoad: function () {
     
     that = this;
