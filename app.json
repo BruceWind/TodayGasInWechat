@@ -5,7 +5,7 @@
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "纯粹油价,不扯别的",
+    "navigationBarTitleText": "今日油价",
     "navigationBarTextStyle": "black"
   }
 }
