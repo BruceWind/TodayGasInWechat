@@ -115,7 +115,7 @@ Page({
   },
   onclickdonate: function(e){
     wx.navigateTo({
-      url: '../cashier/index'//实际路径要写全
+      url: '../donate/index'//实际路径要写全
     })
   },
   onLoad: function () {

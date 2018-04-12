@@ -35,10 +35,10 @@ Page({
   onLoad: function (options) {
   
   },
-  click_img: function(e){
+  click_img: function (e) { 
 
     wx.saveImageToPhotosAlbum({
-      filePath: '../../img/cashier_receive.png',
+      filePath: '/image/donate_receive.png',
       success: function (res) {
 
         if (res.errMsg == 'saveImageToPhotosAlbum:ok') {
@@ -46,7 +46,7 @@ Page({
         }
       },
       fail: function (res) {
-
+        console.error(res)
         wx.showToast({
           title: '图片保存失败',
           icon: 'none',
