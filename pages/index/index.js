@@ -2,18 +2,19 @@
 var config = require('../../config');
 
 
-var ST_P_KEY = 'key_provinceindex';
-function setPreSelectProv() {
+const ST_P_KEY = 'key_provinceindex';
+function setPreSelectProv(provn) {
 
   try {
     wx.setStorageSync(ST_P_KEY, provn)
   } catch (e) {
+    console.error(e)
   }
 }
 
 function getPreSelectProv() {
-  var st_p_v = wx.getStorageSync(ST_P_KEY)
-  if (st_p_v !== null || st_p_v !== undefined) {
+  var st_p_v = wx.getStorageSync(ST_P_KEY);
+  if (st_p_v) {
     return st_p_v;
   }
   else {
@@ -113,9 +114,15 @@ Page({
     requestGas(this.data.provincearray[this.data.provinceindex])
   },
   onLoad: function () {
-
+    
     that = this;
     this.setData({ provinceindex: getPreSelectProv() })
+    
+    
+
+    wx.onNetworkStatusChange(function (res) {
+      requestGas(that.data.provincearray[that.data.provinceindex])
+        })
 
     requestGas(that.data.provincearray[that.data.provinceindex])
 
