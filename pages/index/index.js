@@ -2,13 +2,22 @@
 var config = require('../../config');
 
 
+
+function console_log(msg) {
+  config.console_log(msg)
+}
+
+function console_err(msg) {
+  config.console_err(msg)
+}
+
 const ST_P_KEY = 'key_provinceindex';
 function setPreSelectProv(provn) {
 
   try {
     wx.setStorageSync(ST_P_KEY, provn)
   } catch (e) {
-    console.error(e)
+    console_err(e)
   }
 }
 
@@ -62,13 +71,13 @@ function requestGas(provinve_name) {
     complete: function (res) {
 
       if (res == null || res.data == null) {
-        console.log('网络请求失败');
+        console_log('网络请求失败');
         that.setData({ showloading: false });
         return;
       }
       else {
         var data = res.data.showapi_res_body.list[0]
-        console.log(data);
+        console_log(data);
         that.setData({
           showLoading: false,
           p0: data.p0,
@@ -103,7 +112,7 @@ Page({
     lasttime: null
   },
   bindPickerChange: function (e) {
-    console.log('picker发送选择改变，携带值为', e.detail.value)
+    console_log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
       provinceindex: e.detail.value,
       showloading: true
@@ -113,21 +122,21 @@ Page({
 
     requestGas(this.data.provincearray[this.data.provinceindex])
   },
-  onclickdonate: function(e){
+  onclickdonate: function (e) {
     wx.navigateTo({
       url: '../donate/index'//实际路径要写全
     })
   },
   onLoad: function () {
-    
+
     that = this;
     this.setData({ provinceindex: getPreSelectProv() })
-    
-    
+
+
 
     wx.onNetworkStatusChange(function (res) {
       requestGas(that.data.provincearray[that.data.provinceindex])
-        })
+    })
 
     requestGas(that.data.provincearray[that.data.provinceindex])
 
@@ -135,7 +144,7 @@ Page({
   onShareAppMessage: function (res) {
     if (res.from === 'button') {
       // 来自页面内转发按钮
-      console.log(res.target)
+      console_log(res.target)
     }
     return {
       title: '纯粹油价，不扯虚的',
