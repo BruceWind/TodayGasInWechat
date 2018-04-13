@@ -1,4 +1,0 @@
-<view class='center_container'>
-  <image src='../../image/donate_receive.png' mode='aspectFit' catchtouchend='click_img'></image>
-
-</view>

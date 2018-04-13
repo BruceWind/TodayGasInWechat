@@ -1,6 +1,0 @@
-/* pages/cashier/index.wxss */
-
-.center_container {
-  display: flex;
-  justify-content: center;
-}

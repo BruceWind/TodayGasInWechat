@@ -47,10 +47,6 @@
   </view>
   <!-- page end -->
 
-  <view class="donate button" catchtap="onclickdonate" id="9">
-    <button>捐赠作者</button>
-  </view>
-
 </view>
 <!-- container end -->
 
