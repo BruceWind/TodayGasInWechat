@@ -1,5 +1,7 @@
 # TodayGasInWechat
 
+![](https://github.com/weizongwei5/TodayGasInWechat/raw/master/code.jpg)
+
 数据来自[www.showapi.com](https://www.showapi.com)。
 
 ## 编译项目
