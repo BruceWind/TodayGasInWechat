@@ -74,7 +74,10 @@ function requestGas(provinve_name) {
   console_log("请求开始...");
   wx.request({
     url: "https://api.jisuapi.com/oil/query",
-    method: "GET",
+    header: {
+      "Content-Type": "application/x-www-form-urlencoded"
+        },	
+    method: "POST",
     data: {
       appkey: config.showapi_appid,
       province: provinve_name
