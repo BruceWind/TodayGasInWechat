@@ -8,11 +8,22 @@
 添加config.json到根目录。
 ```
 var config = {
-  debug: true,
-  showapi_appid: 0,
-  showapi_sign: ""
+  debug: false,//控制日志输出
+  showapi_appid: "",
+  console_log: function (msg) {
+    if (config.debug) {
+      console.log(msg)
+    }
+  },
+  console_err: function (msg) {
+    if (config.debug) {
+      console.error(msg)
+    }
+  }
 };
 module.exports = config;
+
+
 ```
 
 - [ ] TODO：添加订阅油价变化
