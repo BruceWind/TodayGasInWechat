@@ -12,6 +12,8 @@ function console_err(msg) {
 }
 
 const ST_P_KEY = 'key_provinceindex';
+const ST_JSON_KEY_PREV = 'key_prev_json_';
+
 function setPreSelectProv(provn) {
 
   try {
@@ -54,19 +56,28 @@ function formatterDateTime() {
 
 var that = null;
 
-function requestGas(provinve_name) {
+function showData(data){
+  console_log(data);
+  // return;
+  that.setData({
+    showLoading: false,
+    p0: data.oil0,
+    p92: data.oil92,
+    p95: data.oil95,
+    p98: data.oil98
+  });
+}
 
+
+
+function requestGas(provinve_name) {
+  console_log("请求开始...");
   wx.request({
-    url: "https://route.showapi.com/138-46",
-    header: {
-      "Content-Type": "application/x-www-form-urlencoded"
-    },
-    method: "POST",
+    url: "https://api.jisuapi.com/oil/query",
+    method: "GET",
     data: {
-      showapi_appid: config.showapi_appid,
-      showapi_sign: config.showapi_sign,
-      showapi_timestamp: formatterDateTime(),
-      prov: provinve_name
+      appkey: config.showapi_appid,
+      province: provinve_name
     },
     complete: function (res) {
 
@@ -76,24 +87,71 @@ function requestGas(provinve_name) {
         return;
       }
       else {
-        var data = res.data.showapi_res_body.list[0]
-        console_log(data);
-        that.setData({
-          showLoading: false,
-          p0: data.p0,
-          p89: data.p89,
-          p90: data.p90,
-          p92: data.p92,
-          p93: data.p93,
-          p95: data.p95,
-          p97: data.p97
-        });
+        var data = res.data.result;
+
+        if(res.data.status==0)
+        {
+          try {
+            wx.setStorageSync(ST_JSON_KEY_PREV+provinve_name, res.data)
+          } catch (e) {
+            console_err(e)
+          }
+        }
+
+        showData(data);
         return;
       }
     }
   });
 }
 
+function isCurrentDay(day1) {
+  var date1 = new Date(day1);
+
+  var timestamp = Date.parse(new Date());
+  timestamp = timestamp / 1000;
+  //获取当前时间  
+  var n = timestamp * 1000;
+  var date2 = new Date(n);  
+  console_log("day1 :"+ date1.getFullYear() +" "+date1.getMonth() + " "+date1.getDate() );
+
+
+  console_log("day2 :" + date2.getFullYear() + " " + date2.getMonth() + " " + date2.getDate());
+
+  if (date1.getFullYear() == date2.getFullYear()
+    &&
+    date1.getMonth() == date2.getMonth()
+    &&
+    date1.getDate() == date2.getDate()) {
+    return true;
+  }
+
+}
+
+function doShowData(prov_name) {
+
+
+try{
+  var res = wx.getStorageSync(ST_JSON_KEY_PREV + prov_name);
+  if (res==null) {
+    requestGas(prov_name)
+    return;
+  }
+  var time = res.result.updatetime;
+  console_log(time)
+  if (isCurrentDay(time)) {
+    showData(res.result);
+  }
+  else {
+    requestGas(prov_name)
+  }
+}
+catch(e){
+  console_err(e);
+  requestGas(prov_name)
+}
+
+}
 
 //PAGE begin
 
@@ -120,7 +178,7 @@ Page({
 
     setPreSelectProv(this.data.provinceindex);
 
-    requestGas(this.data.provincearray[this.data.provinceindex])
+    doShowData(this.data.provincearray[this.data.provinceindex])
   },
   onLoad: function () {
 
@@ -133,7 +191,7 @@ Page({
       requestGas(that.data.provincearray[that.data.provinceindex])
     })
 
-    requestGas(that.data.provincearray[that.data.provinceindex])
+    doShowData(that.data.provincearray[that.data.provinceindex])
 
   },
   onShareAppMessage: function (res) {

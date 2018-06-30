@@ -10,35 +10,26 @@
     </view>
 
     <view class="page__bd">
+
+        <view class="weui-cell">
+          <view class="weui-cell__bd" style="color:green">92号汽油</view>
+          <view class="weui-cell__ft">¥ {{p92}} </view>
+        </view>
       <view class="weui-cells weui-cells_after-title">
         <view class="weui-cell">
           <view class="weui-cell__bd" style="color:red">95号汽油</view>
           <view class="weui-cell__ft">¥ {{p95}} </view>
         </view>
+
         <view class="weui-cell">
-          <view class="weui-cell__bd" style="color:green">92号汽油</view>
-          <view class="weui-cell__ft">¥ {{p92}} </view>
+          <view class="weui-cell__bd">98号汽油</view>
+          <view class="weui-cell__ft">¥ {{p98}} </view>
         </view>
         <view class="weui-cell">
           <view class="weui-cell__bd">0号柴油</view>
           <view class="weui-cell__ft">¥ {{p0}} </view>
         </view>
-        <view class="weui-cell">
-          <view class="weui-cell__bd">89号汽油</view>
-          <view class="weui-cell__ft">¥ {{p89}} </view>
-        </view>
-        <view class="weui-cell">
-          <view class="weui-cell__bd">90号汽油</view>
-          <view class="weui-cell__ft">¥ {{p90}} </view>
-        </view>
-        <view class="weui-cell">
-          <view class="weui-cell__bd">93号汽油</view>
-          <view class="weui-cell__ft">¥ {{p93}} </view>
-        </view>
-        <view class="weui-cell">
-          <view class="weui-cell__bd">97号汽油</view>
-          <view class="weui-cell__ft">¥ {{p97}} </view>
-        </view>
+        
       </view>
 
     </view>
